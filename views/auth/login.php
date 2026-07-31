@@ -29,7 +29,7 @@
     <div class="card">
         <div class="logo">
             <i data-lucide="package"></i>
-            <span>LogiStock</span>
+            <span>LogiStock - rework</span>
         </div>
         <h2 style="text-align: center; margin-bottom: 2rem;">Masuk ke akun Anda</h2>
         
