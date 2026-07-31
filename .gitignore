@@ -1,0 +1,22 @@
+# Folder
+node_modules/
+dist/
+build/
+config/
+database/
+includes/
+
+# File
+.env
+config.json
+fix_password.php
+
+# Log
+*.log
+
+# Cache
+.cache/
+
+# Sistem
+.DS_Store
+Thumbs.db
