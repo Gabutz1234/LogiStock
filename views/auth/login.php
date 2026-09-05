@@ -48,6 +48,10 @@
             </div>
             <button type="submit" class="btn">Masuk Sekarang</button>
         </form>
+        <p>
+            Belum punya akun?
+            <a href="register.php">Sign Up</a>
+        </p>
     </div>
     <script>lucide.createIcons();</script>
 </body>
