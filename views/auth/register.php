@@ -118,7 +118,7 @@
 
     <div class="logo">
         <i data-lucide="package"></i>
-        <span>LogiStock</span>
+        <span>LogiStock - woi udin</span>
     </div>
 
     <h2 style="text-align: center; margin-bottom: 2rem;">
@@ -175,7 +175,7 @@
 
     <div class="login-link">
         Sudah punya akun?
-        <a href="../../index.php">Login</a>
+        <a href="index.php">Login</a>
     </div>
 
 </div>
