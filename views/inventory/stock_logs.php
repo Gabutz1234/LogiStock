@@ -53,7 +53,7 @@
                         ?>
                         <span class="badge <?= $typeClass ?>"><?= $typeLabel ?></span>
                     </td>
-                    <td>#<?= $log['reference_id'] ?: '-' ?></td>
+                    <td>#<?= $log['id'] ?: '-' ?></td>
                     <td class="subtitle" style="font-size: 0.875rem;">
                         <?= htmlspecialchars($log['reason'] ?: '-') ?>
                     </td>
