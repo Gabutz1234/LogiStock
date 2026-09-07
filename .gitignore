@@ -2,9 +2,9 @@
 node_modules/
 dist/
 build/
-config/
-database/
-includes/
+# config/
+# database/
+# includes/
 
 # File
 .env
