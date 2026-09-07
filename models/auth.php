@@ -18,3 +18,38 @@ function auth_login($pdo, $username, $password)
     }
     return false;
 }
+
+function auth_register($pdo, $username, $password)
+{
+    // Cek apakah username sudah digunakan
+    $stmt = $pdo->prepare(
+        "SELECT id FROM users WHERE username = ?"
+    );
+
+    $stmt->execute([$username]);
+
+    if ($stmt->fetch()) {
+        return "Username sudah digunakan.";
+    }
+
+    // Hash password
+    $hashed_password = password_hash(
+        $password,
+        PASSWORD_DEFAULT
+    );
+
+    // Simpan user baru
+    $stmt = $pdo->prepare(
+        "INSERT INTO users (username, password, role)
+         VALUES (?, ?, 'user')"
+    );
+
+    if ($stmt->execute([
+        $username,
+        $hashed_password
+    ])) {
+        return true;
+    }
+
+    return "Registrasi gagal.";
+}
