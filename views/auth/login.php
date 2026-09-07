@@ -52,7 +52,7 @@
         </form>
         <p>
             Belum punya akun?
-            <a href="register.php">Sign Up</a>
+            <a href="views/auth/register.php">Sign Up</a>
         </p>
     </div>
     <script>lucide.createIcons();</script>
