@@ -28,7 +28,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--background); color: var(--foreground); min-height: 100vh; display: grid; grid-template-columns: 280px 1fr; }
-        aside { background-color: var(--card); border-right: 1px solid var(--border); padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 2rem; position: sticky; top: 0; height: 100vh; }
+        aside { background-color: var(--card); border-right: 1px solid var(--border); padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 2rem; position: sticky; top: 0; height: 100vh; overflow: auto;}
         .logo { font-size: 1.25rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
         nav { display: flex; flex-direction: column; gap: 0.5rem; flex-grow: 1; }
         nav a { padding: 0.75rem 1rem; color: var(--foreground); text-decoration: none; border-radius: var(--radius); font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: all 0.2s ease; opacity: 0.7; }
@@ -110,7 +110,7 @@
                 <p class="subtitle" style="text-transform: capitalize;"><?= $_SESSION['role'] === 'admin' ? 'Administrator' : 'Staf' ?></p>
             </div>
             <a href="logout.php" class="logout-btn">
-                <i data-lucide="log-out"></i>
+                <i data-lucide="log-out">Logout</i>
             </a>
         </div>
     </aside>
