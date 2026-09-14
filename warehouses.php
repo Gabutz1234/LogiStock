@@ -8,8 +8,10 @@ require_admin();
 
 if (isset($_POST['action']) && $_POST['action'] === 'create') {
     $data = [
-        'name'     => $_POST['name'] ?? '',
-        'location' => $_POST['location'] ?? '',
+        'name'             => $_POST['name'] ?? '',
+        'location'         => $_POST['location'] ?? '',
+        'min_temperature'  => $_POST['min_temperature'] ?? 0,
+        'max_temperature'  => $_POST['max_temperature'] ?? 0,
     ];
     warehouse_create($pdo, $data);
     header("Location: warehouses.php");
