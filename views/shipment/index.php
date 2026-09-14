@@ -22,6 +22,7 @@
                     <th>Gudang Tujuan</th>
                     <th>Armada</th>
                     <th>Pembuat</th>
+                    <th>Detail Barang</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -34,6 +35,16 @@
                     <td><?= htmlspecialchars($s['destination_name']) ?></td>
                     <td><?= htmlspecialchars($s['fleet_name']) ?></td>
                     <td><?= htmlspecialchars($s['creator_name']) ?></td>
+                    <td>
+                        <?php foreach ($s['items'] as $item): ?>
+                            <div style="margin-bottom: 0.25rem;">
+                                <strong><?= htmlspecialchars($item['item_name']) ?></strong>
+                                <span class="subtitle">
+                                    <?= $item['quantity'] ?> <?= htmlspecialchars($item['unit']) ?>
+                                </span>
+                            </div>
+                        <?php endforeach; ?>
+                    </td>
                     <td>
                         <?php 
                             $statusClass = match($s['status']) {

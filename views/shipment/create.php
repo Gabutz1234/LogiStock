@@ -75,7 +75,13 @@
         const list = document.getElementById('item-list');
         const firstRow = list.children[0];
         const newRow = firstRow.cloneNode(true);
+
+        // Reset pilihan barang
+        newRow.querySelector('select').value = '';
+
+        // Reset jumlah
         newRow.querySelector('input').value = '';
+
         list.appendChild(newRow);
     }
 </script>
