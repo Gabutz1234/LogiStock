@@ -53,21 +53,41 @@
                     </td>
                     <td>
                         <?php if ($isAdmin): ?>
+
                             <?php if ($s['status'] === 'DRAFT'): ?>
                                 <form method="POST" action="transfers.php" style="display:inline;">
                                     <input type="hidden" name="action" value="dispatch">
                                     <input type="hidden" name="id" value="<?= $s['id'] ?>">
-                                    <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Kirim</button>
+                                    <button type="submit" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                        Kirim
+                                    </button>
                                 </form>
+
                             <?php elseif ($s['status'] === 'ON_DELIVERY'): ?>
                                 <form method="POST" action="transfers.php" style="display:inline;">
                                     <input type="hidden" name="action" value="receive">
                                     <input type="hidden" name="id" value="<?= $s['id'] ?>">
-                                    <button type="submit" class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Terima</button>
+                                    <button type="submit" class="btn btn-success" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                        Terima
+                                    </button>
                                 </form>
+
+                            <?php elseif ($s['status'] === 'RECEIVED'): ?>
+                                <span class="subtitle">Diterima</span>
                             <?php endif; ?>
+
                         <?php else: ?>
-                            <span class="subtitle">Tunggu Admin</span>
+
+                            <?php if ($s['status'] === 'DRAFT'): ?>
+                                <span class="subtitle">Tunggu Admin</span>
+
+                            <?php elseif ($s['status'] === 'ON_DELIVERY'): ?>
+                                <span class="subtitle">Dalam Perjalanan</span>
+
+                            <?php elseif ($s['status'] === 'RECEIVED'): ?>
+                                <span class="subtitle">Telah Sampai Tujuan</span>
+                            <?php endif; ?>
+
                         <?php endif; ?>
                     </td>
                 </tr>
