@@ -175,7 +175,7 @@
 
     <div class="login-link">
         Sudah punya akun?
-        <a href="index.php">Login</a>
+        <a href="../../index.php">Sign In</a>
     </div>
 
 </div>
