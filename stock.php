@@ -24,4 +24,4 @@ $title = "Data Stok";
 
 require 'views/layout/header.php';
 require 'views/inventory/stock_list.php';
-require 'views/layout/footer.php';';
+require 'views/layout/footer.php';

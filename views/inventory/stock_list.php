@@ -1,16 +1,32 @@
-<div class="header-actions">
+<div class="header-actions" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 1.5rem;">
+
+    <!-- Judul -->
     <div>
         <h1>Laporan Stok Barang</h1>
         <p class="subtitle">Lihat ketersediaan barang di seluruh gudang</p>
     </div>
 
-    <form method="GET" action="stock.php" class="card" style="padding: 1rem; display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 0;">
+    <!-- Filter & Search -->
+    <form method="GET" action="stock.php" 
+          style="display: flex; align-items: flex-end; gap: 0.75rem; flex-wrap: wrap;">
+
+        <!-- Cari Barang -->
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>Cari Barang</label>
+            <input
+                type="text"
+                name="search"
+                placeholder="Nama atau kode barang..."
+                value="<?= htmlspecialchars($search) ?>"
+                style="min-width: 240px;"
+            >
+        </div>
 
         <!-- Filter Gudang -->
         <div class="form-group" style="margin-bottom: 0;">
-            <label>Filter Berdasarkan Gudang</label>
+            <label>Gudang</label>
 
-            <select name="warehouse_id" onchange="this.form.submit()">
+            <select name="warehouse_id">
                 <option value="">Semua Gudang</option>
 
                 <?php foreach ($warehouses as $w): ?>
@@ -21,20 +37,7 @@
                         <?= htmlspecialchars($w['name']) ?>
                     </option>
                 <?php endforeach; ?>
-
             </select>
-        </div>
-
-        <!-- Pencarian Barang -->
-        <div class="form-group" style="margin-bottom: 0;">
-            <label>Cari Barang</label>
-
-            <input
-                type="text"
-                name="search"
-                placeholder="Nama atau kode barang..."
-                value="<?= htmlspecialchars($search) ?>"
-            >
         </div>
 
         <!-- Tombol Cari -->
@@ -43,10 +46,18 @@
         </button>
 
         <!-- Tombol Reset -->
-        <?php if ($search !== ''): ?>
+        <?php if ($search !== '' || $warehouseId): ?>
             <a 
-                href="stock.php<?= $warehouseId ? '?warehouse_id=' . $warehouseId : '' ?>"
+                href="stock.php"
                 class="btn"
+                style="
+                    background: #6b7280;
+                    color: white;
+                    padding: 0.6rem 1rem;
+                    border-radius: 0.5rem;
+                    text-decoration: none;
+                    font-weight: 600;
+                "
             >
                 Reset
             </a>
