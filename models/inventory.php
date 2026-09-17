@@ -115,12 +115,31 @@ function inventory_stock_out($pdo, $warehouseId, $itemId, $quantity, $reason, $d
     }
 }
 
-function inventory_get_logs($pdo) {
-    return $pdo->query("
-        SELECT sl.*, i.name as item_name, i.code as item_code, w.name as warehouse_name
+function inventory_get_logs($pdo, $startDate = '', $endDate = '') {
+    $sql = "
+        SELECT 
+            sl.*, 
+            i.name as item_name, 
+            i.code as item_code, 
+            w.name as warehouse_name
         FROM stock_logs sl
         JOIN items i ON sl.item_id = i.id
         JOIN warehouses w ON sl.warehouse_id = w.id
-        ORDER BY sl.created_at DESC
-    ")->fetchAll();
+    ";
+
+    $params = [];
+
+    if ($startDate !== '' && $endDate !== '') {
+        $sql .= " WHERE sl.created_at >= ? 
+                  AND sl.created_at < DATE_ADD(?, INTERVAL 1 DAY)";
+        $params[] = $startDate;
+        $params[] = $endDate;
+    }
+
+    $sql .= " ORDER BY sl.created_at DESC";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll();
 }
