@@ -10,26 +10,65 @@ function inventory_get_stock($pdo, $warehouseId, $itemId, $forUpdate = false) {
     return $result ? (int)$result['quantity'] : 0;
 }
 
-function inventory_get_warehouse_stock($pdo, $warehouseId) {
-    $stmt = $pdo->prepare("
-        SELECT s.*, i.name as item_name, i.code as item_code, i.unit 
-        FROM stocks s
-        JOIN items i ON s.item_id = i.id
-        WHERE s.warehouse_id = ?
-        ORDER BY i.name ASC
-    ");
-    $stmt->execute([$warehouseId]);
-    return $stmt->fetchAll();
-}
-
-function inventory_get_global_overview($pdo) {
-    return $pdo->query("
-        SELECT i.name as item_name, i.code as item_code, w.name as warehouse_name, s.quantity, i.unit
+function inventory_get_warehouse_stock($pdo, $warehouseId, $search = '') {
+    $sql = "
+        SELECT 
+            s.*, 
+            i.name as item_name, 
+            i.code as item_code, 
+            i.unit,
+            w.name as warehouse_name
         FROM stocks s
         JOIN items i ON s.item_id = i.id
         JOIN warehouses w ON s.warehouse_id = w.id
-        ORDER BY i.name, w.name
-    ")->fetchAll();
+        WHERE s.warehouse_id = ?
+    ";
+
+    $params = [$warehouseId];
+
+    // Pencarian berdasarkan nama atau kode barang
+    if ($search !== '') {
+        $sql .= " AND (i.name LIKE ? OR i.code LIKE ?)";
+        $params[] = "%$search%";
+        $params[] = "%$search%";
+    }
+
+    $sql .= " ORDER BY i.name ASC";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll();
+}
+
+function inventory_get_global_overview($pdo, $search = '') {
+    $sql = "
+        SELECT 
+            i.name as item_name, 
+            i.code as item_code, 
+            w.name as warehouse_name, 
+            s.quantity, 
+            i.unit
+        FROM stocks s
+        JOIN items i ON s.item_id = i.id
+        JOIN warehouses w ON s.warehouse_id = w.id
+    ";
+
+    $params = [];
+
+    // Pencarian berdasarkan nama atau kode barang
+    if ($search !== '') {
+        $sql .= " WHERE i.name LIKE ? OR i.code LIKE ?";
+        $params[] = "%$search%";
+        $params[] = "%$search%";
+    }
+
+    $sql .= " ORDER BY i.name, w.name";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll();
 }
 
 function inventory_update_stock($pdo, $warehouseId, $itemId, $change, $type, $reason = null, $refId = null, $date = null) {

@@ -2,10 +2,12 @@
 // models/shipment.php
 
 function shipment_all($pdo) {
-    return $pdo->query("
+    $shipments = $pdo->query("
         SELECT s.*, 
-               ow.name as origin_name, dw.name as destination_name, 
-               f.name as fleet_name, u.username as creator_name
+               ow.name as origin_name, 
+               dw.name as destination_name, 
+               f.name as fleet_name, 
+               u.username as creator_name
         FROM shipments s
         JOIN warehouses ow ON s.origin_warehouse_id = ow.id
         JOIN warehouses dw ON s.destination_warehouse_id = dw.id
@@ -13,6 +15,24 @@ function shipment_all($pdo) {
         JOIN users u ON s.created_by = u.id
         ORDER BY s.created_at DESC
     ")->fetchAll();
+
+    // Ambil detail barang untuk setiap mutasi
+    $stmt = $pdo->prepare("
+        SELECT si.item_id, si.quantity,
+               i.name as item_name,
+               i.code as item_code,
+               i.unit
+        FROM shipment_items si
+        JOIN items i ON si.item_id = i.id
+        WHERE si.shipment_id = ?
+    ");
+
+    foreach ($shipments as &$shipment) {
+        $stmt->execute([$shipment['id']]);
+        $shipment['items'] = $stmt->fetchAll();
+    }
+
+    return $shipments;
 }
 
 function shipment_get($pdo, $id) {

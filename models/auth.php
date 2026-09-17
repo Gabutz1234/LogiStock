@@ -21,7 +21,7 @@ function auth_login($pdo, $username, $password)
 
 function auth_register($pdo, $username, $password)
 {
-    // Cek apakah username sudah digunakan
+    // Cek apakah username sudah ada
     $stmt = $pdo->prepare(
         "SELECT id FROM users WHERE username = ?"
     );
@@ -29,7 +29,7 @@ function auth_register($pdo, $username, $password)
     $stmt->execute([$username]);
 
     if ($stmt->fetch()) {
-        return "Username sudah digunakan.";
+        return false;
     }
 
     // Hash password
@@ -38,18 +38,14 @@ function auth_register($pdo, $username, $password)
         PASSWORD_DEFAULT
     );
 
-    // Simpan user baru
+    // Masukkan user baru
     $stmt = $pdo->prepare(
-        "INSERT INTO users (username, password, role)
-         VALUES (?, ?, 'user')"
+        "INSERT INTO users (username, password)
+         VALUES (?, ?)"
     );
 
-    if ($stmt->execute([
+    return $stmt->execute([
         $username,
         $hashed_password
-    ])) {
-        return true;
-    }
-
-    return "Registrasi gagal.";
+    ]);
 }
