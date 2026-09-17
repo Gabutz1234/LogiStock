@@ -4,71 +4,66 @@
         <p class="subtitle">Audit trail dan log transaksi pergerakan barang</p>
     </div>
 
-    <form method="GET" action="reports.php" style="display: flex; align-items: center; gap: 0.5rem;">
-        <input
-            type="date"
-            name="start_date"
-            value="<?= htmlspecialchars($startDate) ?>"
-            style="
-                height: 40px;
-                padding: 0 0.75rem;
-                border: 1px solid var(--border);
-                border-radius: 0.5rem;
-                background: var(--card);
-                color: var(--foreground);
-                font-size: 0.875rem;
-            "
-        >
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
 
-        <span style="opacity: 0.5;">s/d</span>
+        <!-- Filter tanggal -->
+        <form method="GET" action="reports.php"
+              style="display: flex; align-items: center; gap: 0.5rem;">
 
-        <input
-            type="date"
-            name="end_date"
-            value="<?= htmlspecialchars($endDate) ?>"
-            style="
-                height: 40px;
-                padding: 0 0.75rem;
-                border: 1px solid var(--border);
-                border-radius: 0.5rem;
-                background: var(--card);
-                color: var(--foreground);
-                font-size: 0.875rem;
-            "
-        >
+            <input
+                type="date"
+                name="start_date"
+                value="<?= htmlspecialchars($startDate) ?>"
+                style="
+                    height: 40px;
+                    padding: 0 0.75rem;
+                    border: 1px solid var(--border);
+                    border-radius: 0.5rem;
+                    background: var(--card);
+                    color: var(--foreground);
+                    font-size: 0.875rem;
+                "
+            >
 
-        <button
-            type="submit"
-            style="
-                height: 40px;
-                padding: 0 1rem;
-                border: none;
-                border-radius: 0.5rem;
-                background: var(--primary);
-                color: white;
-                font-weight: 600;
-                cursor: pointer;
-            "
+            <span style="opacity: 0.5;">s/d</span>
+
+            <input
+                type="date"
+                name="end_date"
+                value="<?= htmlspecialchars($endDate) ?>"
+                style="
+                    height: 40px;
+                    padding: 0 0.75rem;
+                    border: 1px solid var(--border);
+                    border-radius: 0.5rem;
+                    background: var(--card);
+                    color: var(--foreground);
+                    font-size: 0.875rem;
+                "
+            >
+
+            <button type="submit" class="btn-primary">
+                Tampilkan
+            </button>
+
+        </form>
+
+        <!-- Download -->
+        <a
+            href="exports/stock_pdf.php?start_date=<?= urlencode($startDate) ?>&end_date=<?= urlencode($endDate) ?>"
+            class="btn-secondary"
         >
-            Tampilkan
-        </button>
+            PDF
+        </a>
 
         <a
-            href="reports.php"
-            style="
-                height: 40px;
-                padding: 0 0.75rem;
-                display: inline-flex;
-                align-items: center;
-                text-decoration: none;
-                color: var(--foreground);
-                font-size: 0.875rem;
-                font-weight: 500;
-            "
+            href="exports/stock_excel.php?start_date=<?= urlencode($startDate) ?>&end_date=<?= urlencode($endDate) ?>"
+            class="btn-secondary"
         >
-            Reset
+            Excel
         </a>
-    </form>
+
+    </div>
 </div>
 
 <div class="card">
