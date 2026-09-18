@@ -76,16 +76,22 @@
                 <i data-lucide="layout-dashboard"></i> Dashboard
             </a>
             <?php if ($isAdmin): ?>
-                <a href="warehouses.php" class="<?= $currentFile === 'warehouses.php' ? 'active' : '' ?>">
-                    <i data-lucide="warehouse"></i> Gudang
-                </a>
-                <a href="items.php" class="<?= $currentFile === 'items.php' ? 'active' : '' ?>">
-                    <i data-lucide="box"></i> Katalog Barang
-                </a>
-                <a href="fleets.php" class="<?= $currentFile === 'fleets.php' ? 'active' : '' ?>">
-                    <i data-lucide="truck"></i> Armada
-                </a>
-            <?php endif; ?>
+            <a href="warehouses.php" class="<?= $currentFile === 'warehouses.php' ? 'active' : '' ?>">
+                <i data-lucide="warehouse"></i> Gudang
+            </a>
+
+            <a href="items.php" class="<?= $currentFile === 'items.php' ? 'active' : '' ?>">
+                <i data-lucide="box"></i> Katalog Barang
+            </a>
+
+            <a href="fleets.php" class="<?= $currentFile === 'fleets.php' ? 'active' : '' ?>">
+                <i data-lucide="truck"></i> Armada
+            </a>
+
+            <a href="users.php" class="<?= $currentFile === 'users.php' ? 'active' : '' ?>">
+                <i data-lucide="users"></i> Kelola User
+            </a>
+<?php endif; ?>
 
             <a href="stock.php" class="<?= $currentFile === 'stock.php' ? 'active' : '' ?>">
                 <i data-lucide="list"></i> Data Stok
