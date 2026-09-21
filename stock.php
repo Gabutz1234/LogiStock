@@ -8,16 +8,16 @@ require_once 'models/inventory.php';
 require_login();
 
 $warehouseId = isset($_GET['warehouse_id']) ? (int)$_GET['warehouse_id'] : null;
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Populate data for filters
 $warehouses = warehouse_all($pdo);
 
 // Fetch stock based on filter
 if ($warehouseId) {
-    $stockItems = inventory_get_warehouse_stock($pdo, $warehouseId);
+    $stockItems = inventory_get_warehouse_stock($pdo, $warehouseId, $search);
 } else {
-    // Flatten global overview logic slightly for the detailed list
-    $stockItems = inventory_get_global_overview($pdo);
+    $stockItems = inventory_get_global_overview($pdo, $search);
 }
 
 $title = "Data Stok";

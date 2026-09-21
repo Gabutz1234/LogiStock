@@ -1,21 +1,68 @@
-<div class="header-actions">
+<div class="header-actions" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 1.5rem;">
+
+    <!-- Judul -->
     <div>
         <h1>Laporan Stok Barang</h1>
         <p class="subtitle">Lihat ketersediaan barang di seluruh gudang</p>
     </div>
-    <form method="GET" action="stock.php" class="card" style="padding: 1rem; display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 0;">
+
+    <!-- Filter & Search -->
+    <form method="GET" action="stock.php" 
+          style="display: flex; align-items: flex-end; gap: 0.75rem; flex-wrap: wrap;">
+
+        <!-- Cari Barang -->
         <div class="form-group" style="margin-bottom: 0;">
-            <label>Filter Berdasarkan Gudang</label>
-            <select name="warehouse_id" onchange="this.form.submit()">
+            <label>Cari Barang</label>
+            <input
+                type="text"
+                name="search"
+                placeholder="Nama atau kode barang..."
+                value="<?= htmlspecialchars($search) ?>"
+                style="min-width: 240px;"
+            >
+        </div>
+
+        <!-- Filter Gudang -->
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>Gudang</label>
+
+            <select name="warehouse_id">
                 <option value="">Semua Gudang</option>
+
                 <?php foreach ($warehouses as $w): ?>
-                    <option value="<?= $w['id'] ?>" <?= (isset($_GET['warehouse_id']) && $_GET['warehouse_id'] == $w['id']) ? 'selected' : '' ?>>
+                    <option 
+                        value="<?= $w['id'] ?>"
+                        <?= ($warehouseId == $w['id']) ? 'selected' : '' ?>
+                    >
                         <?= htmlspecialchars($w['name']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <noscript><button type="submit" class="btn btn-primary">Filter</button></noscript>
+
+        <!-- Tombol Cari -->
+        <button type="submit" class="btn btn-primary">
+            Cari
+        </button>
+
+        <!-- Tombol Reset -->
+        <?php if ($search !== '' || $warehouseId): ?>
+            <a 
+                href="stock.php"
+                class="btn"
+                style="
+                    background: #6b7280;
+                    color: white;
+                    padding: 0.6rem 1rem;
+                    border-radius: 0.5rem;
+                    text-decoration: none;
+                    font-weight: 600;
+                "
+            >
+                Reset
+            </a>
+        <?php endif; ?>
+
     </form>
 </div>
 
@@ -31,22 +78,44 @@
                     <th>Satuan</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php foreach ($stockItems as $item): ?>
                 <tr>
-                    <td><span class="badge badge-info"><?= htmlspecialchars($item['item_code']) ?></span></td>
-                    <td style="font-weight: 600;"><?= htmlspecialchars($item['item_name']) ?></td>
-                    <td><?= htmlspecialchars($item['warehouse_name'] ?? 'N/A') ?></td>
+                    <td>
+                        <span class="badge badge-info">
+                            <?= htmlspecialchars($item['item_code']) ?>
+                        </span>
+                    </td>
+
+                    <td style="font-weight: 600;">
+                        <?= htmlspecialchars($item['item_name']) ?>
+                    </td>
+
+                    <td>
+                        <?= htmlspecialchars($item['warehouse_name'] ?? 'N/A') ?>
+                    </td>
+
                     <td>
                         <?php 
                             $qty = $item['quantity'];
-                            $statusClass = $qty > 20 ? 'badge-success' : ($qty > 0 ? 'badge-warning' : 'badge-destructive');
+                            $statusClass = $qty > 20 
+                                ? 'badge-success' 
+                                : ($qty > 0 ? 'badge-warning' : 'badge-destructive');
                         ?>
-                        <span class="badge <?= $statusClass ?>"><?= number_format($qty) ?></span>
+
+                        <span class="badge <?= $statusClass ?>">
+                            <?= number_format($qty) ?>
+                        </span>
                     </td>
-                    <td><?= htmlspecialchars($item['unit']) ?></td>
+
+                    <td>
+                        <?= htmlspecialchars($item['unit']) ?>
+                    </td>
                 </tr>
+
                 <?php endforeach; ?>
+
                 <?php if (empty($stockItems)): ?>
                 <tr>
                     <td colspan="5" style="text-align: center; opacity: 0.5; padding: 3rem;">
@@ -54,6 +123,7 @@
                     </td>
                 </tr>
                 <?php endif; ?>
+
             </tbody>
         </table>
     </div>

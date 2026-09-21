@@ -10,18 +10,19 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Waktu</th>
                     <th>Barang</th>
                     <th>Gudang</th>
                     <th>Perubahan</th>
                     <th>Tipe</th>
-                    <th>ID Ref</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($logs as $log): ?>
                 <tr>
+                    <td>#<?= $log['id'] ?: '-' ?></td>
                     <td style="white-space: nowrap; font-size: 0.75rem; opacity: 0.8;">
                         <?= date('d M Y, H:i', strtotime($log['created_at'])) ?>
                     </td>
@@ -53,7 +54,7 @@
                         ?>
                         <span class="badge <?= $typeClass ?>"><?= $typeLabel ?></span>
                     </td>
-                    <td>#<?= $log['reference_id'] ?: '-' ?></td>
+                    
                     <td class="subtitle" style="font-size: 0.875rem;">
                         <?= htmlspecialchars($log['reason'] ?: '-') ?>
                     </td>

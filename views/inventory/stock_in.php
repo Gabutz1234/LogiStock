@@ -10,15 +10,17 @@
         <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="inventory.php?action=in">
+    <form method="POST" action="inventory.php?action=in" id="form-stok-masuk">
         <input type="hidden" name="action" value="process_in">
         
         <div class="form-group">
             <label>Gudang Tujuan</label>
-            <select name="warehouse_id" required>
+            <select name="warehouse_id" id="select-gudang" required>
                 <option value="">Pilih Gudang...</option>
                 <?php foreach ($warehouses as $w): ?>
-                    <option value="<?= $w['id'] ?>"><?= htmlspecialchars($w['name']) ?> (<?= htmlspecialchars($w['location']) ?>)</option>
+                    <option value="<?= $w['id'] ?>">
+                        <?= htmlspecialchars($w['name']) ?> (<?= htmlspecialchars($w['location']) ?>)
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -30,10 +32,12 @@
 
         <div class="form-group">
             <label>Barang</label>
-            <select name="item_id" required>
+            <select name="item_id" id="select-barang" required>
                 <option value="">Pilih Barang...</option>
                 <?php foreach ($items as $i): ?>
-                    <option value="<?= $i['id'] ?>"><?= htmlspecialchars($i['name']) ?> (<?= htmlspecialchars($i['code']) ?>)</option>
+                    <option value="<?= $i['id'] ?>" data-temp="<?= $i['storage_temp'] ?>">
+                        <?= htmlspecialchars($i['name']) ?> (<?= htmlspecialchars($i['code']) ?>)
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -51,3 +55,6 @@
         <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Simpan Stok Masuk</button>
     </form>
 </div>
+
+<!-- SweetAlert2 via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
