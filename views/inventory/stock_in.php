@@ -58,3 +58,16 @@
 
 <!-- SweetAlert2 via CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if (isset($_GET['success']) && $_GET['success'] == '1'): ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil!',
+    text: 'Stok barang berhasil ditambahkan.',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true
+});
+</script>
+<?php endif; ?>

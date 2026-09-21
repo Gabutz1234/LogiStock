@@ -84,7 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $date
             );
 
-            header("Location: dashboard.php");
+            // Redirect kembali ke halaman stok masuk
+            // dengan tanda bahwa proses berhasil
+            header("Location: inventory.php?action=in&success=1");
             exit;
 
         } elseif ($postAction === 'process_out') {
