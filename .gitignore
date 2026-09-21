@@ -5,6 +5,7 @@ build/
 # config/
 # database/
 # includes/
+/vendor/
 
 # File
 .env

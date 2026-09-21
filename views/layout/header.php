@@ -58,6 +58,93 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
         .alert { padding: 1rem; border-radius: var(--radius); margin-bottom: 1.5rem; }
         .alert-error { background: hsla(0, 84%, 60%, 0.1); color: var(--destructive); border: 1px solid var(--destructive); }
+        .user-info {
+            border-top: 1px solid var(--border);
+            padding-top: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-profile {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--foreground);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: background 0.2s ease;
+        }
+
+        .user-profile:hover {
+            background-color: var(--border);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .user-details {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .username {
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            color: hsl(215, 20%, 65%);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .profile-arrow {
+            width: 16px;
+            color: hsl(215, 20%, 65%);
+        }
+
+        .logout-btn {
+            color: var(--destructive);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: background 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: hsla(0, 84%, 60%, 0.1);
+        }
+
+        .logout-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        .profile-header{
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
@@ -105,12 +192,26 @@
         </nav>
 
         <div class="user-info">
-            <div>
-                <p style="font-size: 0.875rem; font-weight: 600;"><?= htmlspecialchars($_SESSION['username'] ?? 'Pengguna') ?></p>
-                <p class="subtitle" style="text-transform: capitalize;"><?= $_SESSION['role'] === 'admin' ? 'Administrator' : 'Staf' ?></p>
-            </div>
+            <a href="profile.php" class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+
+                <div class="user-details">
+                    <p class="username">
+                        <?= htmlspecialchars($_SESSION['username'] ?? 'Pengguna') ?>
+                    </p>
+
+                    <p class="user-role">
+                        <?= $_SESSION['role'] === 'admin' ? 'Administrator' : 'Staf' ?>
+                    </p>
+                </div>
+
+                <i data-lucide="chevron-right" class="profile-arrow"></i>
+            </a>
+
             <a href="logout.php" class="logout-btn">
-                <i data-lucide="log-out">Logout</i>
+                <i data-lucide="log-out"></i>
             </a>
         </div>
     </aside>
